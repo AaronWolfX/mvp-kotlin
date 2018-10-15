@@ -1,7 +1,11 @@
 package com.gmail.aaronsmith.mvp_kotlin
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Bundle
+import android.util.Log
+import com.gmail.aaronsmith.mvp_kotlin.utils.DisplayManager
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.orhanobut.logger.PrettyFormatStrategy
@@ -47,20 +51,54 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        initConfig()
+        DisplayManager.init(this)
+
     }
 
 
-    private fun initConfig(){
+    private fun initConfig() {
         val formatStrategy = PrettyFormatStrategy.newBuilder()
                 .showThreadInfo(false)
                 .methodCount(0)
                 .methodOffset(7)
                 .tag("hao_zz")
                 .build()
-        Logger.addLogAdapter(object :AndroidLogAdapter(formatStrategy){
+        Logger.addLogAdapter(object : AndroidLogAdapter(formatStrategy) {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG
             }
         })
+    }
+
+    private val mActivityLifecycleCallbacks = object : Application.ActivityLifecycleCallbacks {
+        override fun onActivityPaused(activity: Activity?) {
+
+        }
+
+        override fun onActivityResumed(activity: Activity?) {
+
+        }
+
+        override fun onActivityStarted(activity: Activity?) {
+            Log.d(TAG, "onCreated: " + activity!!.componentName.className)
+        }
+
+        override fun onActivityDestroyed(activity: Activity?) {
+            Log.d(TAG, "onDestroyed: " + activity!!.componentName.className)
+        }
+
+        override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+
+        }
+
+        override fun onActivityStopped(activity: Activity?) {
+
+        }
+
+        override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+            Log.d(TAG, "onCreated: " + activity!!.componentName.className)
+        }
+
     }
 }
