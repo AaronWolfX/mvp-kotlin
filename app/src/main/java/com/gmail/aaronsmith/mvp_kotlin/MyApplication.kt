@@ -42,7 +42,7 @@ class MyApplication : Application() {
         var context: Context by Delegates.notNull()
             private set
 
-        fun getRefWatch(context: Context): RefWatcher? {
+        fun getRefWatcher(context: Context): RefWatcher? {
             val myApplication = context.applicationContext as MyApplication
             return myApplication.refWatcher
         }
@@ -53,7 +53,7 @@ class MyApplication : Application() {
         context = applicationContext
         initConfig()
         DisplayManager.init(this)
-
+        registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks)
     }
 
 
