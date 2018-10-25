@@ -8,7 +8,13 @@ import com.gmail.aaronsmith.mvp_kotlin.mvp.presenter.HomePresenter
 import com.hazz.kotlinmvp.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity(),HomeContract.View {
+class MainActivity : BaseActivity(), HomeContract.View {
+
+    private var mTitle = "标题"
+
+    private var num = 1
+
+
     override fun showError(msg: String, errorCode: Int) {
 
     }
@@ -21,7 +27,7 @@ class MainActivity : BaseActivity(),HomeContract.View {
     }
 
     override fun setHomeData(homeBean: HomeBean) {
-        data.text = homeBean.toString()
+
     }
 
     override fun showLoading() {
@@ -32,9 +38,7 @@ class MainActivity : BaseActivity(),HomeContract.View {
 
     }
 
-    override fun layoutId(): Int {
-        return R.layout.activity_main
-    }
+    override fun layoutId(): Int = R.layout.activity_main
 
     override fun initData() {
 
